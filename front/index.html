@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Inventário</title>
+</head>
+<body>
+    <header>
+        <h1>Inventário - Papelaria PapelTudo</h1>
+
+        <form id="update">
+            <div>
+                <label for="id">id</label>
+                <input type="text" name="id" id="id" required>
+            </div>
+            <div>
+                <label for="nome">nome</label>
+                <input type="text" name="nome" id="nome" required>
+            </div>
+            <div>
+                <label for="descricao">descrição</label>
+                <input type="text" name="descricao" id="descricao" required>
+            </div>
+            <div>
+                <label for="valor">valor</label>
+                <input type="number" name="valor" id="valor" required>
+            </div>
+            <div>
+                <label>Ação</label>
+                <button class="btn">Cadastrar</button>
+            </div>
+        </form>
+    </header>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody id="dados">
+            </tbody>
+        </table>
+    </main>
+</body>
+<footer>
+    <div>
+        <label>Mensagens do Sistema:</label>
+        <input type="text" name="sys" id="sys" readonly />
+    </div>
+    <div>
+        <label>Patrimônio Total:</label>
+        <input type="text" name="Total" id="Total" readonly />
+    </div>
+</footer>
+<script>
+    const dados = document.getElementById('dados');
+    fetch('http://localhost:3000/items')
+        .then(res => res.json())
+        .then(res => {
+            res.forEach(cli => {
+                dados.innerHTML += `
+                    <tr>
+                        <td>${cli.id}</td>
+                        <td>${cli.nome}</td>
+                        <td>${descricao}</td>
+                        <td>${calcValor(cli.calcValor)}</td>
+                        <td>
+                            <button onclick='del(${cli.id})'>[ - ]</button>
+                            <button onclick='window.location.href="./update.html?id=${cli.id}&nome=${cli.nome}&descricao=${cli.descricao}&valor=${cli.valor}"'>
+                                [ * ]
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+        });
+        function calcularSoma() {
+            var numero1 = parseFloat(document.getElementById('numero1').value);
+            var numero2 = parseFloat(document.getElementById('numero2').value);
+
+            if (!isNaN(numero1) && !isNaN(numero2)) {
+                var resultado = numero1 + numero2;
+                document.getElementById('resultado').innerText = 'Resultado: ' + resultado;
+            } else {
+                alert('Por favor, insira números válidos.');
+            }
+        }
+        function del(id) {
+        fetch(`http://localhost:3000/clientes/${id}`,{method: 'DELETE'})
+            .then(res => res.json())
+            .then(res => {
+                window.location.reload();
+            });
+    }
+    </script>
+    </html>
