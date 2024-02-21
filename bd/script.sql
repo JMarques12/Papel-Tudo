@@ -15,3 +15,5 @@ VALUES
 ('i004','Longarina','Longarina de três cadeiras',450.00),
 ('i005','Prateleira','Prateleira de vidro',2500.00),
 ('i006','Prateleira','Prateleira de Madeira',1600.00);
+
+select * from item;

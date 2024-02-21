@@ -6,11 +6,11 @@
     <link rel="stylesheet" href="style.css">
     <title>Inventário</title>
 </head>
-<body>
+<body onload="loadItems()">
     <header>
         <h1>Inventário - Papelaria PapelTudo</h1>
 
-        <form id="update">
+        <form id="criar">
             <div>
                 <label for="id">id</label>
                 <input type="text" name="id" id="id" required>
@@ -59,7 +59,8 @@
         <input type="text" name="Total" id="Total" readonly />
     </div>
 </footer>
-<script>
+<script src="script.js"></script>
+<!-- <script>
     const dados = document.getElementById('dados');
     fetch('http://localhost:3000/items')
         .then(res => res.json())
@@ -99,5 +100,5 @@
                 window.location.reload();
             });
     }
-    </script>
+    </script> -->
     </html>

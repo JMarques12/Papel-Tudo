@@ -6,7 +6,7 @@ const create = (req, res) => {
     let nome = req.body.nome;
     let descricao= req.body.descricao;
     let valor = req.body.nascimento;
-    let query = `INSERT INTO items(nome, descricao, valor) VALUE`;
+    let query = `INSERT INTO item(nome, descricao, valor) VALUE`;
     query += `('${nome}', '${descricao}', '${valor}');`;
     con.query(query, (err, result) => {
         if (err)
@@ -21,7 +21,7 @@ const create = (req, res) => {
 
 //CRUD - Read
 const read = (req, res) => {
-    con.query("SELECT * FROM items ORDER BY id DESC", (err, result) => {
+    con.query("SELECT * FROM item ORDER BY id DESC", (err, result) => {
         if (err)
             res.json(err);
         else
@@ -35,7 +35,7 @@ const update = (req, res) => {
     let nome = req.body.nome;
     let descricao= req.body.descricao;
     let valor = req.body.nascimento;
-    let query = `UPDATE items SET nome = '${nome}', descricao = '${descricao}', valor = '${valor}' WHERE id = ${id}`;
+    let query = `UPDATE item SET nome = '${nome}', descricao = '${descricao}', valor = '${valor}' WHERE id = ${id}`;
     con.query(query, (err, result) => {
         if (err)
             res.status(400).json(err).end;
@@ -51,7 +51,7 @@ const update = (req, res) => {
 //CRUD - Delete
 const del = (req, res) => {
     let id = req.params.id;
-    con.query(`DELETE FROM items WHERE id = ${id}`, (err, result) => {
+    con.query(`DELETE FROM item WHERE id = ${id}`, (err, result) => {
         if (err)
             res.status(400).json(err).end();
         else {

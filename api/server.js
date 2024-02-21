@@ -21,7 +21,7 @@ const create = (req, res) => {
     let nome = req.body.nome;
     let descricao = req.body.descricao;
     let valor = req.body.valor;
-    let query = `INSERT INTO items(id, nome, descricao, valor) VALUE`;
+    let query = `INSERT INTO item(id, nome, descricao, valor) VALUE`;
     query += `('${nome}', '${descricao}', '${valor}');`;
     con.query(query, (err, result) => {
         if (err)
@@ -33,7 +33,7 @@ const create = (req, res) => {
 
 //CRUD - Read
 const read = (req, res) => {
-    con.query("SELECT * FROM items ORDER BY id DESC", (err, result) => {
+    con.query("SELECT * FROM item ORDER BY id DESC", (err, result) => {
         if (err)
             res.json(err);
         else
@@ -47,7 +47,7 @@ const update = (req, res) => {
     let nome = req.body.nome;
     let descricao = req.body.descricao;
     let valor = req.body.valor;
-    let query = `UPDATE items SET cpf = ' nome = '${nome}', descricao = '${descricao}', valor = '${valor}' WHERE id = ${id};`;
+    let query = `UPDATE item SET cpf = ' nome = '${nome}', descricao = '${descricao}', valor = '${valor}' WHERE id = ${id};`;
     con.query(query, (err, result) => {
         if (err)
             res.redirect("http://127.0.0.1:5500/front/erro.html?erro=Erro ao atualizar&err=" + err.code);
@@ -63,7 +63,7 @@ const update = (req, res) => {
 //CRUD - Delete
 const del = (req, res) => {
     let id = Number(req.params.id);
-    con.query(`DELETE FROM items WHERE id=${id}`, (err, result) => {
+    con.query(`DELETE FROM item WHERE id=${id}`, (err, result) => {
         if (err)
             res.redirect("http://127.0.0.1:5500/front/erro.html?erro=Erro ao excluir&err=" + err.code);
         else {

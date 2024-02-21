@@ -3,7 +3,7 @@ const msgs = document.getElementById('msgs');
 const criar = document.getElementById('criar');
 const dados = document.getElementById('dados');
 const uri = "http://localhost:3000/items";
-const clientes = [];
+const items = [];
 const cadastro = document.getElementById('cadastro');
 
 //Obter dados do back-end
@@ -11,9 +11,6 @@ function loadItems() {
     fetch(uri)
         .then(res => res.json())
         .then(res => {
-            // res.forEach(cli => {
-            //     clientes.push(cli);
-            // });
             items.push(...res);
             preencherTabela();
         });
@@ -21,15 +18,15 @@ function loadItems() {
 
 //CRUD - Read - Renderizar os dados obtidos em uma tabela
 function preencherTabela() {
-    items.forEach(cli => {
+    items.forEach(items => {
         dados.innerHTML += `
                 <tr>
-                    <td>${cli.id}</td>
-                    <td>${cli.nome}</td>
-                    <td>${cli.descricao}</td>
-                    <td>${cli.valor}</td>
+                    <td>${items.id}</td>
+                    <td>${items.nome}</td>
+                    <td>${items.descricao}</td>
+                    <td>${items.valor}</td>
                     <td>
-                        <button onclick="del(${cli.id})"> - </button>
+                        <button onclick="del(${items.id})"> - </button>
                         <button onclick="edit(this)"> * </button>
                     </td>
                 </tr>
@@ -72,7 +69,7 @@ function update(btn) {
     let linha = btn.parentNode.parentNode;
     let celulas = linha.cells;
     let id = celulas[0].innerHTML;
-    let data = {
+    let valor = {
         nome: celulas[1].innerHTML,
         descricao: celulas[2].innerHTML,
         valor: celulas[3].innerHTML
